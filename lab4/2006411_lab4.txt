@@ -1,0 +1,447 @@
+Name-Anup Singh
+Roll-2006411
+IT-2nd Year(3rd semester)
+
+
+
+<--- Answer 1--->
+
+#include<iostream>
+using namespace std;
+
+class b;
+class a
+{
+    int x;
+    public:
+    
+    void input(int in){
+        x=in;
+    }
+
+    void display()
+{
+    cout<<x<<" ";
+}
+
+
+    friend void swap(a &,b &);
+};
+class b
+{
+    int x;
+    public:
+    void input(int in)
+    {
+        x=in;
+    }
+    void display()
+{
+    cout<<x<<" ";
+}
+    friend void swap(a &,b &);
+};
+
+void swap(a &a1,b &b1)
+{
+    int temp;
+    temp=a1.x;
+    a1.x=b1.x;
+    b1.x=temp;
+}
+
+int main()
+{
+    int in1,in2;
+    a a1;
+    b b1;
+    cout<<"Enter your two input to swap: ";
+    cin>>in1>>in2;
+    a1.input(in1);
+    b1.input(in2);
+    cout<<"The number before swapping: "<<in1<<" "<<in2<<endl;
+    swap(a1,b1);
+    cout<<"Swapped number is: ";
+    a1.display();
+    b1.display();
+    return 0;
+}
+
+<---Answer 2--->
+
+#include<iostream>
+using namespace std;
+
+class centi;
+class feet
+{
+    float ft;
+    float in;
+    float final;
+    public:
+        void store(float a,float b)
+        {
+            ft=a;
+            in=b;
+        }
+
+        void calcfeet()
+        {
+            final=ft*30.48+in*2.54;
+        }
+
+
+    friend void compare(feet,centi);
+};
+
+class centi
+{
+    float cen;
+    float me;
+    float final;
+    public: 
+    void store(float a,float b)
+    {
+        cen=a;
+        me=b;
+    }
+
+    void calccent()
+    {
+        final=cen+me*100;
+    }
+
+    friend void compare(feet,centi);
+};
+
+
+
+void compare(feet f1,centi c1)
+{
+    if(f1.final>c1.final)
+    {
+        cout<<f1.ft<<" feet and "<<f1.in<<" inch is greater";
+    }
+    else if(f1.final<c1.final)
+    {
+        cout<<c1.cen<<" cm and "<<c1.me<<" m is greater";
+    }
+}
+
+int main()
+{
+    feet f1;
+    centi c1;
+    float ft,cen,me,in;
+    cout<<"Enter distance in feet and inch: ";
+    cin>>ft>>in;
+    f1.store(ft,in);
+    cout<<"Enter distance in centimeter and meter: ";
+    cin>>cen>>me;
+    c1.store(cen,me);
+    f1.calcfeet();
+    c1.calccent();
+    compare(f1,c1);
+}
+
+
+<---Answer 3--->
+
+#include<iostream>
+using namespace std;
+
+class run
+{
+    int count;
+    static int in;
+    static int out;
+    public:
+    void calculate(int b)
+    {
+        ++in;
+        count=b;
+        
+    }
+
+    void show()
+    {
+        ++out;
+        cout<<"current value of input is: "<<count<<endl;
+    }
+
+    void runcount()
+    {
+        
+        cout<<"total input run was: "<<in<<" times"<<endl;
+        cout<<"total output run was: "<<out<<" times"<<endl;
+    }
+
+};
+int run::in;
+int run::out;
+
+int main()
+{
+    run r,r1,r2;
+    int n;
+    cout<<"Enter n: ";
+    cin>>n;
+    r.calculate(n);
+    r1.calculate(100);
+    r2.calculate(78);
+    r.show();
+    r1.show();
+    r2.show();
+    r.runcount();
+    r1.runcount();
+    r2.runcount();
+    return 0;
+}
+
+
+<---Answer 4--->
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class student{
+    char name[30];
+    int roll;
+    static float avg;
+    float total;
+    public:
+    void input(char* p,int r,float a)
+    {
+        strcpy(name,p);
+        roll=r;
+        avg=avg+a;
+        total=a;
+    }
+    friend void show(student *arr,int n);
+    
+};
+ float student::avg;
+
+  void show(student *arr,int n)
+ {     
+    cout<<"*****SHOWING DETAILS*****\n";
+     for(int i=0;i<n;i++)
+     {
+         cout<<endl;
+         cout<<"Details of student "<<i+1<<" : \n";
+         cout<<"Name "<<" : "<<arr[i].name<<endl;
+         cout<<"Roll "<<" : "<<arr[i].roll<<endl;
+         cout<<"Marks "<<" : "<<arr[i].total<<endl;
+
+     }
+     
+     student::avg=(student::avg)/n;
+     cout<<"Average= "<<student::avg<<endl;
+ }
+
+int main()
+{
+    int n;
+    cout<<"Enter the number of student: ";
+    cin>>n;
+        char a[30];
+        int roll;
+        float av;
+    student s[n];
+    for(int i=0;i<n;i++)
+    {
+        cout<<"\nEnter details of student "<<i+1<<endl;
+        cout<<"Enter name: ";
+        cin.ignore();
+        cin.getline(a,30);
+        cout<<"Enter roll: ";
+        cin>>roll;
+        cout<<"Enter marks: ";
+        cin>>av;
+        cout<<endl;
+        s[i].input(a,roll,av);
+    }
+    show(s,n);
+
+    return 0;
+}
+
+
+<---Answer 5--->
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class store
+{    
+    char bname[30];
+    char aname[30];
+    int price;    
+
+    public:
+    void getdata(char *b,char *a,int p)
+    {
+        strcpy(bname,b);
+        strcpy(aname,a);
+        price=p;
+    }
+    friend void showdata(store *s,int low,int high,int n);
+};
+
+    void showdata(store *s,int low,int high,int n)
+    {
+        cout<<endl;
+        cout<<"SR.No\tBook name\tAuthor name\tPrice\n";
+        for(int i=0;i<n;i++)
+        {            
+            if((s[i].price>=low) && (s[i].price<=high))
+            {
+                cout<<i+1<<".\t"<<s[i].bname<<"\t"<<s[i].aname<<"\t"<<s[i].price<<endl;
+            }
+            else
+            cout<<"-----No books Found-----Try again!!\n";
+        }
+    }
+
+int main()
+{
+    char a[30];
+    char b[30];
+    int pr,low,high;
+    int n;
+    cout<<"Enter number of books: ";
+    cin>>n;
+    store st[n];
+    for(int i=0;i<n;i++)
+    {
+        cout<<"\nEnter details of book "<<i+1<<" : "<<endl;
+        cout<<"Enter book name: ";
+        cin.ignore();
+        cin.getline(a,30);
+        cout<<"Enter author name: ";
+        cin.getline(b,30);
+        cout<<"Enter price of book: ";
+        cin>>pr;
+        st[i].getdata(a,b,pr);
+    }
+    cout<<"\nEnter low and high price range: \nLow: ";
+    cin>>low;
+    cout<<"High: ";
+    cin>>high;
+    showdata(st,low,high,n);
+    return 0;
+}
+
+
+<---Answer 6--->
+
+// Write a program to find out the greatest between two numbers defined in two different classes by using friend function
+
+// i'm using one friend fuction as a friend for another class
+#include<iostream>
+using namespace std;
+class B;
+class A
+{
+    int a;
+    public:
+    void store(int in)
+    {
+        a=in;
+    }
+    void compare(B b);
+};
+class B
+{
+    int a;
+    public:
+    void store(int in)
+    {
+        a=in;
+    }
+    friend void A::compare(B b);
+};
+
+void A::compare(B b)
+{
+    if(a>b.a)
+    cout<<"Greatest number is : "<<a<<endl;
+    else if(a<b.a)
+    cout<<"Greatest number is : "<<b.a<<endl;
+}
+
+int main()
+{
+    int in1,in2;
+    cout<<"Enter two inputs to check greatest among them: \n1st Input: ";
+    cin>>in1;
+    cout<<"2nd Input: ";
+    cin>>in2;
+    A a;
+    B b;
+    a.store(in1);
+    b.store(in2);
+    a.compare(b);
+    return 0;
+}
+
+
+<---Answer 7--->
+
+// Create two classes DM and DB which store the value of distances. DM stores distances in meters and centimeters and DB in feet and inches. Write a program that can read values for the class objects and add one object of Dm with another object of DB. Use friend function to carry out the operation. The object that stores the results may be a DM object or DB object, depending on the units in which the results are required. The display should in the format of feet and inches or meters and centimeters depending on the object on display.
+
+
+#include<iostream>
+using namespace std;
+
+class DM;
+class DB
+{
+    float ft;
+    float in;
+    public:
+        void store(float a,float b)
+        {
+            ft=a;
+            in=b;
+        }
+        float add(DM c1);
+};
+
+class DM
+{
+    float cm;
+    float m;
+    public:
+    void store(float a,float b)
+        {
+            cm=a;
+            m=b;
+        }
+        friend float DB::add(DM c1);
+};
+
+float DB::add(DM c1)
+{
+    float temp1=(ft*30.48)+(c1.m*100)+(in*2.54)+(c1.cm);
+    return temp1;
+}
+
+
+int main()
+{
+    DB f1;
+    DM c1;
+    float ft,cen,me,in;
+    cout<<"Enter distance in feet and inch: ";
+    cin>>ft>>in;
+    f1.store(ft,in);
+    cout<<"Enter distance in centimeter and meter: ";
+    cin>>cen>>me;
+    c1.store(cen,me);
+    cout<<"Sum of these lengths = "<<f1.add(c1)<<" Centimeters"<<endl;
+
+    return 0;
+}

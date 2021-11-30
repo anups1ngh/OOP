@@ -1,0 +1,642 @@
+Anup singh
+Roll-2006411
+Lab-10
+
+
+Answer--1
+
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+template <class T>
+T minimum(T a[], int size)
+{
+    T min = a[0];
+    for (int i = 0; i < size; i++)
+    {
+        if (a[i] < min)
+            min = a[i];
+    }
+    return min;
+}
+
+int main()
+{
+    int a[10], size, i, min1;
+    float b[10], min2;
+    cout << "Enter the size value: ";
+    cin >> size;
+    cout << "Enter the integer array elements: ";
+    for (i = 0; i < size; i++)
+        cin >> a[i];
+    cout << "Enter the floating array elements: ";
+    for (i = 0; i < size; i++)
+        cin >> b[i];
+    min1 = minimum(a, size);
+    min2 = minimum(b, size);
+    cout << "The minimum integer element is: ";
+    cout << min1<<endl;
+    cout << "The minimum floating element is : ";
+    cout << min2<<endl;
+    return 0;
+}
+
+
+Answer--2
+
+#include <iostream>
+using namespace std;
+
+template <typename T>
+void Swap(T &n1, T &n2)
+{
+        T temp;
+        temp = n1;
+        n1 = n2;
+        n2 = temp;
+}
+
+int main()
+{
+        int i1 = 5, i2 = 8;
+        float f1 = 7.2, f2 = 2.7;
+        char c1 = 'a', c2 = 's';
+
+        cout << "Before passing data to function template.\n";
+        cout << "i1 = " << i1 << "\ni2 = " << i2;
+        cout << "\nf1 = " << f1 << "\nf2 = " << f2;
+        cout << "\nc1 = " << c1 << "\nc2 = " << c2;
+
+        Swap(i1, i2);
+        Swap(f1, f2);
+        Swap(c1, c2);
+
+        cout << "\n\nAfter passing data to function template.\n";
+        cout << "i1 = " << i1 << "\ni2 = " << i2;
+        cout << "\nf1 = " << f1 << "\nf2 = " << f2;
+        cout << "\nc1 = " << c1 << "\nc2 = " << c2;
+
+        return 0;
+}
+
+
+Answer--3
+
+// 10.3 oop lab
+/*3 (Function Template) Write a template function to search for a given key
+element from an array. Illustrate how you perform search in integer,
+character as well as double arrays using the same template function.*/
+
+#include <iostream>
+using namespace std;
+
+template <class T>
+bool seaRch(T arr[], T key, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (arr[i] == key)
+            return true;
+    }
+    return false;
+}
+int main()
+{
+    int arr1[] = {1, 4, 9, 20, 11};
+    int size1 = 5;
+    int key1 = 9;
+
+    if (seaRch(arr1, key1, size1))
+        cout << "Yes the element is found" << endl;
+    else
+        cout << "No the element is not found" << endl;
+
+
+
+    char arr2[] = {'a', 'b', 'c'};
+    int size2 = 3;
+    char key2 = 'c';
+    if (seaRch(arr2, key2, size2))
+        cout << "Yes the element is found" << endl;
+    else
+        cout << "No the element is not found" << endl;
+
+
+
+    double arr3[] = {4.567, 9.45, 8.654};
+    int size3 = 3;
+    double key3 = 4.568;
+    if (seaRch(arr3, key3, size3))
+        cout << "Yes the element is found" << endl;
+    else
+        cout << "No the element is not found" << endl;
+    return 0;
+}
+
+
+Answer--4
+
+
+#include <iostream>
+using namespace std;
+#define N 10
+
+template <class T>
+void sort(T arr[], int SIZE)
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		for (int j = i + 1; j < SIZE; j++)
+		{
+			if (arr[i] > arr[j])
+			{
+				T temp;
+				temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+	}
+}
+
+int main()
+{
+	int int_array[N];
+	float float_array[N];
+	cout << "Enter integer array elements:" << endl;
+	for (int i = 0; i < N; i++)
+	{
+		cin >> int_array[i];
+	}
+	cout << "Enter floating array elements:" << endl;
+	for (int i = 0; i < N; i++)
+	{
+		cin >> float_array[i];
+	}
+	sort(int_array, N);
+	sort(float_array, N);
+	cout << "After sorting they are :" << endl;
+	for (int i = 0; i < N; i++)
+	{
+		cout << int_array[i] << ", ";
+	}
+	cout << endl;
+	for (int i = 0; i < N; i++)
+	{
+		cout << float_array[i] << ", ";
+	}
+	return 0;
+}
+
+
+Answer--5
+
+#include <iostream>
+using namespace std;
+
+template <class t1, class t2>
+void sum(t1 a, t2 b)
+{
+    cout << "\nSum=" << a + b << endl;
+}
+
+int main()
+{
+    int a, b;
+    float x, y;
+    cout << "\nEnter two integer data: ";
+    cin >> a >> b;
+    cout << "\nEnter two float data: ";
+    cin >> x >> y;
+    sum(a, b);
+    sum(x, y);
+    sum(a, x);
+    return 0;
+}
+
+
+Answer--6
+
+/*6.(Class Template) Write a class template to represent a generic vector.
+Include member functions to perform the following tasks:
+
+? To create the vector. T *a;
+Int size;
+? To modify the value of a given element.
+Void modify(T newval, int index)
+? To multiply the vector by a scalar value.
+Void multiply(T scalarval)*/
+//lab 10.6.cpp
+#include <iostream>
+using namespace std;
+
+const int size = 3;
+template <class T>
+class veCtor
+{
+    T *vec;
+
+public:
+    veCtor()
+    {
+        vec = new T[size];
+        for (int i = 0; i < size; i++)
+        {
+            vec[i] = 0;
+        }
+    }
+    veCtor(T *a)
+    {
+        vec = new T[size];
+        for (int i = 0; i < size; i++)
+        {
+            vec[i] = a[i];
+        }
+    }
+    void modify(T newValue, int idx)
+    {
+        vec[idx] = newValue;
+    }
+    void multiply(T value)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            vec[i] *= value;
+        }
+    }
+    void display()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            cout << vec[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+    int arr[] = {10,20,30};
+    veCtor<int> v1(arr);
+    cout << "The vector is : ";
+    v1.display();
+
+    int idx1 = 2;
+    int modify1 = 10;
+    v1.modify(modify1, idx1);
+    cout << "The vector after modifying value is : ";
+    v1.display();
+
+    int scalar = 5;
+    v1.multiply(scalar);
+    cout << "The vector after multiplying with scalar is : ";
+    v1.display();
+
+    float arr2[] = {1.1,2.2,3.3};
+    veCtor<float> v2(arr2);
+    cout << "The vector is : ";
+    v2.display();
+
+    int idx2 = 0;
+    float modify2 = 1.9;
+    v2.modify(modify2, idx2);
+    cout << "The vector after modifying value is : ";
+    v2.display();
+
+    float scalar2 = 1.1;
+    v2.multiply(scalar2);
+    cout << "The vector after multiplying with scalar is : ";
+    v2.display();
+
+    return 0;
+}
+
+
+Answer--7
+
+#include <iostream>
+using namespace std;
+template <class Te>
+class Max
+{
+	Te a, b;
+
+public:
+	Max(Te x, Te y)
+	{
+		a = x;
+		b = y;
+	}
+
+	Te get_Max()
+	{
+		if (a > b)
+		{
+			return a;
+		}
+		return b;
+	}
+};
+
+int main()
+{
+	Max<int> integ(10, 50);
+
+	cout << "Maximum of 10 and 50 from user is : " << integ.get_Max() << endl;
+	return 0;
+}
+
+Answer--8
+
+//lab-10.8.cpp
+#include <iostream>
+using namespace std;
+
+template <class T, int size>
+class sTack
+{
+    T *stk;
+    int top;
+
+public:
+    sTack()
+    {
+        top = -1;
+        stk = new T[size];
+    }
+
+    void push(T ele);
+    T pop();
+    void display();
+};
+
+template <class T, int size>
+void sTack<T, size>::push(T ele)
+{
+    if (top == size - 1)
+        cout << "Stack is full.\n";
+    else
+    {
+        top++;
+        stk[top] = ele;
+    }
+}
+
+template <class T, int size>
+T sTack<T, size>::pop()
+{
+    T popped;
+    if (top == -1)
+        cout << "STack is empty\n";
+    else
+    {
+        popped = stk[top];
+        top--;
+    }
+    return popped;
+}
+
+template <class T, int size>
+void sTack<T, size>::display()
+{
+    while (top != -1)
+    {
+        cout << stk[top] << " ";
+        top--;
+    }
+    cout << endl;
+}
+int main()
+{
+    const int size = 20;
+    sTack<int, size> st;
+    st.push(1);
+    st.push(2);
+    st.push(3);
+    st.push(4);
+    st.push(5);
+    int popped = st.pop();
+    cout << "The popped element is : " << popped << endl;
+    cout << "The stack is : ";
+    st.display();
+
+    sTack<char, size> st2;
+    st2.push('a');
+    st2.push('b');
+    st2.push('c');
+
+    char popped2 = st2.pop();
+    cout << "The popped element is : " << popped2 << endl;
+    cout << "The stack is : ";
+    st2.display();
+
+    return 0;
+}
+
+
+Answer--9
+
+#include <iostream>
+using namespace std;
+
+template <class T, int size>
+class stack
+{
+    T *arr;
+    int top = -1;
+
+public:
+    stack()
+    {
+        arr = new T[size];
+    }
+    int isFull()
+    {
+        return top == size - 1;
+    }
+    int isEmpty()
+    {
+        return top == -1;
+    }
+    void push(T data)
+    {
+        if (isFull())
+        {
+            cout << "Stack overflow!\n";
+        }
+        else
+        {
+            arr[++top] = data;
+            cout << "Pushed " << data << "!\n";
+        }
+    }
+    T pop()
+    {
+        T val;
+        if (isEmpty())
+        {
+            cout << "Stack underflow!\n";
+        }
+        else
+        {
+            val = arr[top--];
+        }
+        return val;
+    }
+    void display()
+    {
+        cout << "Stack content\n";
+        for (int i = top; i > -1; i--)
+        {
+            cout << arr[i] << endl;
+        }
+    }
+};
+
+class student
+{
+    string name;
+    int roll;
+    float cgpa;
+
+public:
+    student(){};
+    student(string s, int r, float c)
+    {
+        name = s;
+        roll = r;
+        cgpa = c;
+    }
+    student operator=(const student &ob)
+    {
+        name = ob.name;
+        roll = ob.roll;
+        cgpa = ob.cgpa;
+        return *this;
+    }
+
+    void display()
+    {
+        cout << "Name: " << name << endl;
+        cout << "Roll: " << roll << endl;
+        cout << "CGPA: " << cgpa << endl;
+    }
+    friend ostream &operator<<(ostream &out, const student &ob);
+};
+ostream &operator<<(ostream &out, const student &ob)
+{
+    out << "Name: " << ob.name << endl;
+    out << "Roll: " << ob.roll << endl;
+    out << "CGPA: " << ob.cgpa << endl;
+    return out;
+}
+
+int main()
+{
+    stack<student, 4> ob1;
+    student ob2("Anup", 411, 10);
+    student ob3("Sam", 412, 10);
+    ob1.push(ob2);
+    ob1.push(ob3);
+    ob1.display();
+    return 0;
+}
+
+
+Answer--10
+
+#include <iostream>
+using namespace std;
+
+template <class T, int size>
+class qUeue
+{
+    T *q;
+    int front, rear;
+
+public:
+    qUeue()
+    {
+        front = -1;
+        rear = -1;
+        q = new T[size];
+    }
+
+    void enqueue(T ele);
+    T dequeue();
+    void display();
+};
+
+template <class T, int size>
+void qUeue<T, size>::enqueue(T ele)
+{
+    if (rear == size - 1)
+    {
+        cout << "Stack is full\n";
+        return;
+    }
+    else
+    {
+        q[rear] = ele;
+        rear++;
+    }
+}
+
+template <class T, int size>
+T qUeue<T, size>::dequeue()
+{
+    T popped;
+    if (front == rear)
+    {
+        cout << "Stack is empty\n";
+    }
+    else
+    {
+        popped = q[front];
+        front++;
+    }
+    return popped;
+}
+
+template <class T, int size>
+void qUeue<T, size>::display()
+{
+    int temp = front;
+    while (temp != rear)
+    {
+        cout << q[temp] << " ";
+        temp++;
+    }
+    cout << endl;
+}
+int main()
+{
+    const int size = 20;
+
+    qUeue<int, size> q;
+    q.enqueue(1);
+    q.display();
+    q.enqueue(2);
+    q.display();
+    q.enqueue(3);
+    q.display();
+    q.enqueue(4);
+    q.display();
+    int popped = q.dequeue();
+    cout << "The popped element is : " << popped << endl;
+    q.display();
+
+    qUeue<double, size> q2;
+    q2.enqueue(2.345);
+    q2.display();
+    q2.enqueue(4.345);
+    q2.display();
+    q2.enqueue(12.345);
+    q2.display();
+    double popped2 = q2.dequeue();
+    cout << "The popped element is : " << popped2 << endl;
+    q2.display();
+
+    return 0;
+}

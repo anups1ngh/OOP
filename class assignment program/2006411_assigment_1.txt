@@ -1,0 +1,758 @@
+Name-Anup Kumar Singh
+Roll-2006411
+Section-A15
+Branch-IT
+
+
+Answer--1
+
+
+
+#include<iostream>
+using namespace std;
+
+class polynomial
+{
+    int n;
+    int *arr;
+    public:
+        polynomial(){}
+
+        polynomial(int *array, int len)
+        {
+            n = len;
+            arr = new int[n];
+            for(int i = 0; i < len; i++)
+            {
+                arr[i] = array[i];
+            }
+        }
+
+        polynomial(const polynomial &o)
+        {
+            n = o.n;
+            arr = new int[n];
+            for(int i = 0; i < n; i++)
+            {
+                arr[i] = o.arr[i];
+            }
+        }
+
+        ~polynomial()
+        {
+            delete[] arr;
+        }
+
+        void display()
+        {
+            int i;
+            for(i = n - 1; i > 0; i--)
+            {
+                cout << arr[i] << "x^" << i << " + ";
+            }
+            cout << arr[i] << "x^" << i << endl;
+        }
+
+        void add(polynomial p1, polynomial p2);
+        void multiply(polynomial p1, polynomial p2);
+};
+
+void polynomial :: add(polynomial p1, polynomial p2)
+{
+    n = (p1.n > p2.n) ? p1.n : p2.n;
+    arr = new int[n];
+    for(int i = 0; i < n; i++)
+    {
+        if(i < p1.n && i < p2.n)
+        {
+            arr[i] = p1.arr[i] + p2.arr[i];
+        }
+        else if(i > p1.n)
+        {
+            arr[i] = p2.arr[i];
+        }
+        else
+        {
+            arr[i] = p1.arr[i];
+        }
+    }
+}
+
+void polynomial :: multiply(polynomial p1, polynomial p2)
+{
+    n = p1.n + p2.n - 1;
+    arr = new int[n];
+    for(int i = 0; i < n; i++)
+    {
+        arr[i] = 0;
+    }
+
+    for(int i = 0; i < p1.n; i++)
+    {
+        for(int j = 0; j < p2.n; j++)
+        {
+            arr[i+j] += p1.arr[i]*p2.arr[j];
+        }
+    }
+}
+
+int main(){
+    int n_411;
+    
+    cout << "Enter the highest degree of polynomial: ";
+    cin >> n_411;
+    n_411++;
+    int arr_411[n_411];
+    for(int i = 0; i < n_411; i++)
+    {
+        cout << "Enter the coefficient of degree " << i << ": ";
+        cin >> arr_411[i];
+    }
+    polynomial o1_411(arr_411, n_411);
+
+    cout << "Enter the highest degree of second polynomial: ";
+    cin >> n_411;
+    n_411++;
+    int arr2_411[n_411];
+    for(int i = 0; i < n_411; i++)
+    {
+        cout << "Enter the coefficient of degree " << i << ": ";
+        cin >> arr2_411[i];
+    }
+    polynomial o2_411(arr2_411, n_411);
+    polynomial o3_411;
+    o3_411.add(o1_411, o2_411);
+    polynomial o1_411;
+    o1_411.multiply(o1_411, o2_411);
+    o1_411.display();
+    o2_411.display();
+    o3_411.display();
+    o1_411.display();
+
+    return 0;
+}
+
+
+
+
+Answer--2
+
+
+
+#include <iostream>
+using namespace std;
+
+class vector
+{
+    int x, y, z;
+
+public:
+    void create(int a, int b, int c)
+    {
+        x = a;
+        y = b;
+        z = c;
+    }
+    void modify();
+    void multiplyGivenAxis();
+    void multiplyAllAxes();
+    void display();
+    void divideAllAxes();
+    void addAllAxes();
+};
+
+void vector ::modify()
+{
+    char ch;
+    int n;
+    cout << "Enter the coordinate you want to modify: ";
+    cin >> ch;
+    cout << "Enter the value: ";
+    cin >> n;
+    switch (ch)
+    {
+    case 'x':
+        x = n;
+        break;
+    case 'y':
+        y = n;
+        break;
+    case 'z':
+        z = n;
+        break;
+    default:
+        cout << "Invalid input!\n";
+        break;
+    }
+}
+
+void vector ::multiplyGivenAxis()
+{
+    char ch;
+    int n;
+    cout << "Enter the coordinate to which you want to multiply: ";
+    cin >> ch;
+    cout << "Enter the value: ";
+    cin >> n;
+    if(ch == 'x')
+        x *= n;
+    else if(ch == 'y')
+        y *= n;
+    else
+        z *= n;
+}
+
+void vector :: multiplyAllAxes()
+{
+    int n;
+    cout << "Enter the number you want to multiply: ";
+    cin >> n;
+    x *= n;
+    y *= n;
+    z *= n;
+}
+
+void vector :: divideAllAxes()
+{
+    int n;
+    cout << "Enter the number you want to divide: ";
+    cin >> n;
+    x /= n;
+    y /= n;
+    z /= n;
+}
+
+void vector :: addAllAxes()
+{
+    int n;
+    cout << "Enter the number you want to add: ";
+    cin >> n;
+    x += n;
+    y += n;
+    z += n;
+}
+
+void vector :: display()
+{
+    cout << "P(" << x << ", " << y << ", " << z << ")" << endl;
+}
+
+int main()
+{
+    vector v_411;
+    int x_411, y_411, z_411, n_411;
+    cout << "Enter the coordinates of vector\n";
+    cout << "x: ";
+    cin >> x_411;
+    cout << "y: ";
+    cin >> y_411;
+    cout << "z: ";
+    cin >> z_411;
+    v_411.create(x_411, y_411, z_411);
+
+    v_411.modify();
+    v_411.display();
+    v_411.multiplyGivenAxis();
+    v_411.display();
+    v_411.multiplyAllAxes();
+    v_411.display();
+    v_411.divideAllAxes();
+    v_411.display();
+    v_411.addAllAxes();
+    v_411.display();
+
+    return 0;
+}
+
+
+
+
+Answer--3
+
+
+
+#include <iostream>
+using namespace std;
+
+struct date
+{
+    int dd, mm, yy;
+};
+
+class age
+{
+    struct date present;
+    struct date birthday;
+
+public:
+    void setPresent(int d, int m, int y)
+    {
+        present.dd = d;
+        present.mm = m;
+        present.yy = y;
+    }
+
+    void setBirthday(int d, int m, int y)
+    {
+        birthday.dd = d;
+        birthday.mm = m;
+        birthday.yy = y;
+    }
+    void showAge();
+};
+
+void age ::showAge()
+{
+    int year, months, days;
+    int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    
+    
+    if(birthday.dd > present.dd)
+    {
+        present.dd += month[birthday.mm - 1];
+        present.mm--;
+    }
+
+    if(birthday.mm > present.mm)
+    {
+        present.yy--;
+        present.mm += 12;
+    }
+
+    days = present.dd - birthday.dd;
+    months = present.mm - birthday.mm;
+    year = present.yy - birthday.yy;
+    cout << "Your age is " << year << "years " << months << "months " << days << "days\n";
+}
+
+int main()
+{
+    age ob1_411;
+    int d_411, m_411, y_411;
+    cout << "Enter the present date in dd mm yyyy format: ";
+    cin >> d_411 >> m_411 >> y_411;
+    ob1_411.setPresent(d_411, m_411, y_411);
+    cout << "Enter the Birth date in dd mm yyyy format: ";
+    cin >> d_411 >> m_411 >> y_411;
+    ob1_411.setBirthday(d_411, m_411, y_411);
+
+    ob1_411.showAge();
+    return 0;
+}
+
+
+
+Answer--4
+
+
+#include<iostream>
+using namespace std;
+
+class time{
+    int hour;
+    int min;
+    public:
+        void setData(int a, int b)
+        {
+            hour = a;
+            min = b;
+        }
+        void display()
+        {
+            cout << hour << ":" << min << endl;
+        }
+};
+
+class meeting{
+    char name[20];
+    class time t;
+    public:
+        void setData()
+        {
+            int a, b;
+            cout << "Enter the name of person: ";
+            cin >> name;
+            cout << "Enter the time in hh:mm format: ";
+            cin >> a >> b;
+            t.setData(a, b);
+        }
+        void diplay()
+        {
+            cout << "Meeting details:\n";
+            cout << "Name: " << name << endl;
+            cout << "Time: " ;
+            t.display();
+        }
+};
+
+int main(){
+    class meeting meet_411;
+
+    meet_411.setData();
+    meet_411.diplay();
+    return 0;
+}
+
+
+
+
+Answer--5
+
+
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+class Student{
+    char name[20];
+    int roll;
+    float marks[5];
+    float total_marks;
+    float average;
+    static float avgClass;
+    public:
+        void setData(char *p, int r, float arr[])
+        {
+            float sum = 0;
+            strcpy(name, p);
+            roll = r;
+            for(int i = 0; i < 5; i++)
+            {
+                marks[i] = arr[i];
+                sum += arr[i];
+            }
+            total_marks = sum;
+            average = sum/5;
+        }
+        void diplay()
+        {
+            cout << "Name: " << name << endl;
+            cout << "Roll: " << roll << endl;
+            cout << "The marks of 5 subjects are: ";
+            for(int i = 0; i < 5; i++)
+            {
+                cout << marks[i] << " ";
+            }
+            cout << "\nThe average marks of this student is " << average << endl;
+        }
+        friend void AverageClass(Student *s, int n);
+        friend void disAboveAvg(Student *s, int n);
+        friend void disBelowAvg(Student *s, int n);
+        friend void sortAscend(Student *s, int n);
+        friend void showHighest(Student *s, int n);
+};
+
+float Student :: avgClass;
+
+void AverageClass(Student *s, int n)
+{
+    float sum = 0;
+    for(int i = 0; i < n; i++)
+    {
+        sum += (s + i)->total_marks;
+    }
+    Student :: avgClass = sum/n;
+    cout << "The average marks scored by class is " << Student :: avgClass << endl;
+}
+
+void disAboveAvg(Student *s, int n)
+{
+    cout << "The students who got more than average marks:\n";
+    for(int i = 0; i < n; i++)
+    {
+        if(s[i].total_marks > Student :: avgClass)
+        {
+            s[i].diplay();
+        }
+    }
+}
+
+void disBelowAvg(Student *s, int n)
+{
+    cout << "The students who got less than average marks:\n";
+    for(int i = 0; i < n; i++)
+    {
+        if(s[i].total_marks < Student :: avgClass)
+        {
+            s[i].diplay();
+        }
+    }
+}
+
+void sortAscend(Student *s, int n)
+{
+    for(int i = 0; i < n - 1; i++)
+    {
+        for(int j = 0; j < n - i - 1; j++)
+        {
+            if(s[j].total_marks > s[j + 1].total_marks)
+            {
+                Student temp = s[j];
+                s[j] = s[j + 1];
+                s[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void showHighest(Student *s, int n)
+{
+    cout << "The student who got highest marks is:\n";
+    Student temp = s[0];
+    for(int i = 1; i < n; i++)
+    {
+        if(temp.total_marks < s[i].total_marks)
+            temp = s[i];
+    }
+    temp.diplay();
+}
+
+int main(){
+    int n_411, roll_411;
+    char name_411[20];
+    float marks_411[5];
+    cout << "Enter the number of students: ";
+    cin >> n_411;
+    Student cl_411[n_411];
+    for(int i = 0; i < n_411; i++)
+    {
+        cout << "Enter the name: ";
+        getchar();
+        gets(name_411);
+        cout << "Enter the roll: ";
+        cin >> roll_411;
+        cout << "Enter the marks of 5 subjects:\n";
+        for(int j = 0; j < 5; j++)
+        {
+            cout << "marks[" << j + 1 << "]: ";
+            cin >> marks_411[j];
+        }
+        cl_411[i].setData(name_411, roll_411, marks_411);
+    }
+    disAboveAvg(cl_411, n_411);
+    cout << "**************\n";
+    disBelowAvg(cl_411, n_411);
+    cout << "***************\n";
+    sortAscend(cl_411, n_411);
+    for(int i = 0; i < n_411; i++)
+    {
+        cl_411[i].diplay();
+    }
+    cout << "***************\n";
+    showHighest(cl_411, n_411);
+    return 0;
+}
+
+
+Answer--6
+
+
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+class books
+{
+    char code[10];
+    char name[20];
+    float price;
+    int quantity;
+    float total;
+    static int count;
+    public:
+        void setData(char *c, char *n, float p, int q)
+        {
+            strcpy(code, c);
+            strcpy(name, n);
+            price = p;
+            quantity = q;
+            total = p * q;
+        }
+        
+        void display()
+        {
+            if(count < 1)
+            {
+                cout << "SI.No.\tCode\tName\tPrice\tQuantity\tTotal\n";
+                cout << "*********************************************************************\n";
+                count++;
+            }
+            cout << count++ << "\t" << code << "\t" << name << "\t" << price << "\t" << quantity << "\t\t" << total << endl;
+        }
+
+        friend void calc(books *b, int a);
+};
+
+int books :: count;
+
+void calc(books *b, int a)
+{
+    float temp;
+    for(int i = 0; i < a; i++)
+    {
+        temp += b[i].total;
+    }
+    cout << "********************************************************************\n                                              Total = Rs." << temp << "/-\n";
+}
+
+
+int main(){
+    int n_411, quantity_411;
+    float price_411;
+    char name_411[20], code_411[10];
+    cout << "Enter the number of books: ";
+    cin >> n_411;
+    books b_411[n_411];
+    for(int i = 0; i < n_411; i++)
+    {
+        cout << "Enter the code: ";
+        getchar();
+        gets(code_411);
+
+        cout << "Enter the name: ";
+        gets(name_411);
+
+        cout << "Enter the price: ";
+        cin >> price_411;
+        cout << "Enter the quantity: ";
+        cin >> quantity_411;
+        b_411[i].setData(code_411, name_411, price_411, quantity_411);
+    }
+
+    for(int i = 0; i < n_411; i++)
+    {
+        b_411[i].display();
+    }
+
+    calc(b_411, n_411);
+    return 0;
+}
+
+
+
+
+Answer--7
+
+
+#include <iostream>
+using namespace std;
+
+class fraction
+{
+    int num;
+    int den;
+
+public:
+    void setData(int a, int b)
+    {
+        num = a;
+        den = b;
+    }
+
+    void display()
+    {
+        cout << num << "/" << den << endl;
+    }
+
+    void simplify(fraction *o);
+    fraction add(fraction o1, fraction o2);
+    fraction subtract(fraction &o1, fraction &o2);
+    fraction multiply(fraction *o1, fraction *o2);
+
+};
+
+void fraction :: simplify(fraction *o)
+{
+    int n = o->num > o->den ? o->den : o->num;
+    int i = 1, commonDivisor = 1;
+    while(i <= n)
+    {
+        if(o->num % i == 0 && o->den % i == 0)
+        {
+            commonDivisor = i;
+        }
+        i++;
+    }
+    o->num /= commonDivisor;
+    o->den /= commonDivisor;
+}
+
+fraction fraction ::add(fraction o1, fraction o2)
+{
+    fraction temp;
+    temp.num = (o1.num * o2.den) + (o1.den * o2.num);
+    temp.den = o1.den * o2.den;
+    simplify(&temp);
+    return temp;
+}
+
+fraction fraction :: subtract(fraction &o1, fraction &o2)
+{
+    fraction temp;
+    temp.num = (o1.num * o2.den) - (o1.den * o2.num);
+    temp.den = o1.den * o2.den;
+    simplify(&temp);
+    return temp;
+}
+
+fraction fraction :: multiply(fraction *o1, fraction *o2)
+{
+    fraction temp;
+    temp.num = o1->num * o2->num;
+    temp.den = o1->den * o2->den;
+    simplify(&temp);
+    return temp;
+}
+
+int main()
+{
+    fraction o1_411, o2_411, o3_411, o4_411, o5_411;
+    o1_411.setData(3, 5);
+    o2_411.setData(4, 9);
+
+    o3_411 = o3_411.add(o1_411, o2_411);
+    o3_411.display();
+
+    o4_411 = o4_411.subtract(o1_411, o2_411);
+    o4_411.display();
+
+    o5_411 = o5_411.multiply(&o1_411, &o2_411);
+    o5_411.display();
+    return 0;
+}
+
+
+
+Answer--8
+
+
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+double area(float a, float b)
+{
+    return 1/2.0 * (sqrt(((a * a) - ((b * b)/4)))*b);
+}
+
+double area(int a)
+{
+    return sqrt(3)/4 * pow(a, 2);
+}
+
+double area(int a, int b, int c)
+{
+    float s = (a + b + c)/2.0;
+    return sqrt(s*(s - a) * (s - b) * (s - c));
+}
+
+int main(){
+    cout << "The area of scalene triangle is " << area(2, 4, 5) << endl;
+    cout << "The area of isosceles triangle is " << area(4, 6) << endl;
+    cout << "The area of equilateral triangle is " << area(4) << endl;
+    return 0;
+}
+
+
+
+*********************THANK YOU**************************

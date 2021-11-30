@@ -1,0 +1,7 @@
+Name: anup singh
+Roll: 411
+Gender: male
+****Marks****
+Marks 1: 20
+Marks 2: 19
+Marks 3: 20

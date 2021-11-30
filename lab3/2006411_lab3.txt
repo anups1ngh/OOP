@@ -1,0 +1,444 @@
+<=== Answer 1 ===>
+
+#include<iostream>
+using namespace std;
+
+void area(float rad)
+{
+    float calc=3.14*rad*rad;
+    cout<<"area of circle is: "<<calc<<endl;
+}
+
+void area(int length, int breadth)
+{
+    float calc=length*breadth;
+    cout<<"Area of Rectangle: "<<calc<<endl;
+}
+
+void area(float base,float heigth)
+{
+    float calc=0.5*base*heigth;
+    cout<<"Area of triangle: "<<calc<<endl;
+}
+
+int main()
+{
+    float rad,base,height;
+    int length,breadth;
+    cout<<"Enter radius for area of circle: ";
+    cin>>rad;
+    area(rad);
+    cout<<"Enter length and breadth: ";
+    cin>>length>>breadth;
+    area(length,breadth);
+    cout<<"Enter base and height of triangle: ";
+    cin>>base>>height;
+    area(base,height);
+    return 0;
+}
+
+
+
+<=== Answer 2 ===>
+
+#include<iostream>
+using namespace std;
+
+void vol(float radius)
+{
+    float calc=4/3*3.14*radius*radius*radius;
+    cout<<"The volume of Sphere is: "<<calc<<endl;
+}
+
+void vol(float radius, float height)
+{
+    float calc=3.14*radius*radius*height;
+    cout<<"Volume of Cylinder: "<<calc<<endl;
+}
+
+void vol(float length,float breadth,float height)
+{
+    float calc=length*breadth*height;
+    cout<<"Volume of Cuboid: "<<calc<<endl;
+}
+
+int main()
+{
+    float rad,radius,heigth,l,b,h;
+    cout<<"Enter radius for volume of sphere: ";
+    cin>>rad;
+    vol(rad);
+    cout<<"Enter radius and height for volume of cylinder: ";
+    cin>>radius>>heigth;
+    vol(radius,heigth);
+    cout<<"Enter length breadth and height for volume of cuboid: ";
+    cin>>l>>b>>h;
+    vol(l,b,h);
+    return 0;
+}
+
+
+<=== Answer 3a ===>
+
+#include<iostream>
+using namespace std;
+
+void print(int n=80,char c='*')
+{
+    for(int i=0;i<n;i++)
+    {
+        cout<<c<<" ";
+    }
+}
+
+int main()
+{
+    char check;
+    int n;
+    char a;
+
+    here:
+
+    cout<<"Do you want to put your input for print: Y/N ";
+    cin>>check;
+    if(check=='Y'||check=='y')
+    {
+    cout<<"Enter n: ";
+    cin>>n;
+    cout<<"Enter char: ";
+    cin>>a;
+
+    print(n,a);
+    }
+
+    else if(check=='n' || check=='N')
+    {
+        cout<<"You choose not to give input so showing default output:"<<endl;
+        print();
+        cout<<endl;
+    }
+    else
+    {
+        cout<<"You provided wrong input :( Try again !! "<<endl<<endl;
+        goto here;
+    }
+    return 0;
+}
+
+
+
+<=== Answer 3b ===>
+
+#include<iostream>
+using namespace std;
+
+void print()
+{
+    int n=80;
+    char a='*';
+    for(int i=0;i<n;i++)
+    cout<<a<<" ";
+}
+
+void print(int n)
+{
+    char a='*';
+    for(int i=0;i<n;i++)
+    cout<<a<<" ";
+}
+
+void print(char a)
+{
+    int n=80;
+    for(int i=0;i<n;i++)
+    cout<<a<<" ";
+}
+
+void print(int n,char a)
+{
+    for(int i=0;i<n;i++)
+    cout<<a<<" ";
+}
+
+int main()
+{
+    char check;
+    int n;
+    char a;
+
+    here:
+    cout<<"\nselect one 1 or 2 or 3 or 4 :\n1.Change n: \n2.Change char: \n3.Change n and char: \n4.No Change: \n";
+    cin>>check;
+    if(check=='1')
+    {
+        cout<<"Enter n: ";
+        cin>>n;
+        print(n);
+    }
+    else if(check=='2')
+    {
+        cout<<"Enter char: ";
+        cin>>a;
+        print(a);
+    }
+    else if(check=='3')
+    {
+        cout<<"Enter n and char: ";
+        cin>>n>>a;
+        print(n,a);
+    }
+    else if(check=='4')
+    {
+        cout<<"Showing default Result: \n";
+        print();
+    }
+    else
+    {
+        cout<<"You entered wrong input...Try again !! "<<endl;
+        goto here;
+    }
+    return 0;
+}
+
+
+
+<=== Answer 4 ===>
+
+#include<iostream>
+using namespace std;
+
+int squ(int n)
+{
+    return n*n;
+}
+
+int cu(int n)
+{
+    return n*n*n;
+}
+
+int main()
+{
+    char check;
+    int n;
+    cout<<"n: ";
+    cin>>n;
+    cout<<"Square= "<<squ(n)<<endl;
+    cout<<"Cube= "<<cu(n)<<endl;
+    return 0;
+}
+
+
+<=== Answer 5 ===>
+
+#include<iostream>
+using namespace std;
+
+int inc(int n)
+{
+    return ++n;
+}
+
+int main()
+{
+    int n;
+    cout<<"n: ";
+    cin>>n;
+    cout<<"Incremented number= "<<inc(n)<<endl;
+    return 0;
+}
+
+
+
+<=== Answer 6 ===>
+
+#include<iostream>
+using namespace std;
+
+class complex
+{
+    int real,img;
+    public:
+    void inputt(int r,int i)
+    {
+        real=r;
+        img=i;
+    }
+
+    void show()
+    {
+        cout<<real<<" + "<<img<<"i"<<endl;
+    }
+
+    complex add(int a,complex c1)
+    {
+        complex temp;
+        temp.real=a+c1.real;
+        temp.img=c1.img;
+        return temp;
+    }
+
+    void add(complex c1,complex c2)
+    {
+        real=c1.real+c2.real;
+        img=c1.img+c2.img;
+    }
+};
+
+
+int main()
+{
+    complex c1,c2,c3;
+    int re1,im1,re2,im2,ran;
+    char c;
+    here:
+    cout<<"Do you want to add:\n1.two complex number\n2.one complex one interger\n";
+    cin>>c;
+    if(c=='1')
+    {
+        cout<<"1st real: ";
+        cin>>re1;
+        cout<<"1st img: ";
+        cin>>im1;
+        cout<<"2nd real: ";
+        cin>>re2;
+        cout<<"2nd img: ";
+        cin>>im2;
+        c1.inputt(re1,im1);
+        c2.inputt(re2,im2);
+        c3.add(c1,c2);
+        c3.show();
+    }
+    else if(c=='2')
+    {
+        cout<<"Enter interger: ";
+        cin>>ran;
+        cout<<"Enter 1st real: ";
+        cin>>re1;
+        cout<<"Enter 1st img: ";
+        cin>>im1;
+        c1.inputt(re1,im1);
+        c3=c3.add(ran,c1);
+        c3.show(); 
+    }
+    else
+    {
+        cout<<endl<<"Wrong input... Try again !! "<<endl;
+        goto here;
+    }
+    return 0;
+}
+
+
+<=== Answer 7 ===>
+
+#include<iostream>
+using namespace std;
+
+void sum(int a,int b=10,int c=20)
+{
+    int sum=a+b+c;
+    cout<<"Sum => "<<a<<" + "<<b<<" + "<<c<<" = "<<sum<<endl;
+}
+
+int main()
+{
+    int a1,a2,a3;
+    char ch;
+
+    here:
+    cout<<"How many numbers you want to take: \n1.One\n2.Two\n3.Three\n";
+    cin>>ch;
+    if(ch=='1')
+    {
+        cout<<"Enter the number: ";
+        cin>>a1;
+        sum(a1);
+    }
+    else if(ch=='2')
+    {
+        cout<<"Enter the numbers: ";
+        cin>>a1>>a2;
+        sum(a1,a2);
+    }
+    else if(ch=='3')
+    {
+        cout<<"Enter the numbers: ";
+        cin>>a1>>a2>>a3;
+        sum(a1,a2,a3);
+    }
+    else
+    {
+        cout<<"You entered wrong input...Try again !! "<<endl;
+        goto here;
+    }
+    return 0;
+
+}
+
+
+
+<=== Answer 8 ===>
+
+#include<iostream>
+using namespace std;
+
+// by value
+void swap(int a,int b)
+{
+    int temp=a;
+    a=b;
+    b=temp;
+    cout<<"New swapped numbers are: "<<a<<" and "<<b<<endl;
+    cout<<":This is call by value answer:"<<endl<<endl;
+}
+
+// by address
+void swap(int *a,int *b)
+{
+    int *temp=a;
+    a=b;
+    b=temp;
+    cout<<"New swapped numbers are: "<<*a<<" and "<<*b<<endl;
+    cout<<":This is call by address answer:"<<endl<<endl;
+}
+
+// by reference
+void swapp(int &x,int &y)
+{
+    int temp=x;
+    x=y;
+    y=temp;
+    cout<<"New swapped numbers are: "<<x<<" and "<<y<<endl;
+    cout<<":This is call by reference answer:"<<endl<<endl;
+}
+
+int main()
+{
+    int a,b;
+    cout<<"Enter two integers to swap: ";
+    cin>>a>>b;
+    cout<<endl;
+    // by value
+    swap(a,b);
+    // by address
+    swap(&a,&b);
+    // by reference
+    swapp(a,b);
+}
+
+
+<=== Answer 9 ===>
+
+#include<iostream> 
+using namespace std;
+   
+int x;  // Global x
+   
+int main()
+{
+  int x = 10; // Local x
+  cout << "Value of global x is " << ::x;
+  cout << "\nValue of local x is " << x;  
+  return 0;
+}

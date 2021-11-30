@@ -1,0 +1,394 @@
+Answer--1
+
+#include<iostream>
+using namespace std;
+
+class complex
+{
+    int real;
+    int img; 
+    public:
+    
+    complex(){};
+    complex(int r,int im)
+    {
+        real=r;
+        img=im;
+    }
+    complex(const complex & c1)
+    {
+        real=c1.real;
+        img=c1.img;
+    }
+    ~complex()
+    {
+        cout<<"Destructor invoked\n";
+    }
+    void display()
+    {
+        cout<<"\n"<<real<<" + "<<img<<"i"<<endl;
+    }
+};
+
+
+int main()
+{
+    int r,i;
+    cout<<"Enter real and imaginary number: ";
+    cin>>r>>i;
+    complex c1(r,i);
+    complex c2(c1);
+    c1.display();
+    return 0;
+}
+
+
+Answer--2
+
+
+// Create a class which stores time in hh:mm format. Include all the constructors. The parameterized constructor should initialize the minute value to zero, if it is not provided.
+
+#include<iostream>
+using namespace std;
+
+class time
+{
+    int hour;
+    int minute;
+    public:
+        time()
+        {
+            hour=03;
+            minute=00;
+            cout<<"Default time was: "<<hour<<" h : "<<minute<<" m\n";
+        }
+        time(int h,int m=0)
+        {
+            hour=h;
+            minute=m;
+        }
+        void calculate()
+        {
+            if(minute>60)
+            {
+            hour=hour+1;
+            minute=minute%60;
+            }
+        }
+        void display()
+        {
+            cout<<"Time is:\n"<<hour<<" hr : "<<minute<<" m"<<endl;
+        }
+};
+
+int main()
+{
+    int h,m;
+    cout<<"Enter Hour: ";
+    cin>>h;
+    cout<<"Enter Minute: ";
+    cin>>m;
+    time t(h,m),t2;
+    t.calculate();
+    t.display();
+}
+
+
+Answer--3
+
+
+// Create a class which stores a string and its length as data members. Include all the constructors. Include a member function to join two strings and display the concatenated string
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+class str
+{
+    char *one;
+    char *two;
+    int len1;
+    int len2;
+    public:
+       str()
+       {
+           one= new char[4];
+           two= new char[5];
+           strcpy(one,"Anup");
+           strcpy(two,"Singh");
+           cout<<"Default name is: "<<strcat(one,two)<<endl;
+       }
+       str(char *first,char *second)
+       {
+           len1= strlen(first);
+           len2= strlen(second);
+           one= new char[len1];
+           two= new char[len2+1];
+           strcpy(one,first);
+           strcpy(two,second);
+           cout<<"Full string is : "<<strcat(one,two)<<endl;
+       }
+       str(const str &s1)
+       {
+           one= new char[s1.len1];
+           two= new char[s1.len2+1];
+           strcpy(one,s1.one);
+           strcpy(two,s1.two);
+           cout<<"Full copy string is : "<<strcat(one,two)<<endl;
+       }
+       
+};
+
+int main()
+{
+    char a[10];
+    char b[10];
+    cout<<"Enter string 1: ";
+    cin>>a;
+    cout<<"Enter string 2: ";
+    cin>>b;
+    str s1(a,b),s2,s3(s1);
+}
+
+
+Answer--4
+
+
+// Write a C++ program using class to dynamically allocate two integer arrays, add them it to a third array and display all the arrays
+#include<iostream>
+using namespace std;
+
+class arr
+{
+    private:
+    int *arr1;
+    public:
+        arr(){};
+        arr(int *a,int *b,int n1,int n2)
+        {
+            int n3=n1+n2;
+            arr1 = new int [n3];
+            for(int i=0;i<n1;i++)
+            {
+                arr1[i]=a[i];
+            }
+            int k=n1;
+            for(int i=0;i<n2;i++)
+            {
+                
+                arr1[k]=b[i];
+                k++;
+            }
+            cout<<"Combined array is: ";
+            for(int i=0;i<n3;i++)
+            {
+                cout<<arr1[i];
+            }
+        }
+};
+
+int main()
+{
+    int a[50],b[50],n1,n2;
+    cout<<"Enter number of inputs for array 1: ";
+    cin>>n1;
+    cout<<"Enter number of inputs for array 2: ";
+    cin>>n2;
+    cout<<"Enter array1 elements: \n";
+    for(int i=0;i<n1;i++)
+    {
+        int el;
+        cout<<"Element "<<i+1<<" : ";
+        cin>>el;
+        a[i]=el;
+    }
+    cout<<"Enter array2 elements: \n";
+    for(int i=0;i<n2;i++)
+    {
+        int el;
+        cout<<"Element "<<i+1<<" : ";
+        cin>>el;
+        b[i]=el;
+    }
+    arr a1(a,b,n1,n2);
+}
+
+
+
+Answer--5
+
+
+// WAP to demonstrate the order of call of constructors and destructors for a class
+
+#include<iostream>
+using namespace std;
+
+class A {
+    static int c;
+    int a;
+    public:
+    A()
+    {
+
+        cout << "Object no created is: "<<++c<<endl;
+    }
+    A(int i)
+    {
+        a=i;
+        cout<<"Object no created is: "<<++c<<endl;
+    }
+    A(const A &ob)
+    {
+        a=ob.a;
+        cout<<"Object no created is: "<<++c<<endl;
+    }
+    ~A()
+    {
+        cout << "Object no destroyed is: "<<c--<<endl;
+    }
+};
+
+int A::c;
+
+int main()
+{
+    A o1,o2(2),o3(o2);
+    return 0;
+}
+
+
+
+Answer--6
+
+
+// WAP to count number of objects created from a class using concept of static data members and static member function.
+
+#include<iostream>
+using namespace std;
+
+class test
+{
+    private: 
+        static int a;
+        int k;
+    public:
+     test()
+     {
+         ++a;
+     }
+      test(int i)
+      {
+          k=i;
+          ++a;
+      }
+      test(const test &t)
+      {
+          k=t.k;
+          ++a;
+      }
+      static void show()
+      {
+          cout<<"Total object created is: "<<a<<endl;
+      }
+};
+
+int test::a;
+
+int main()
+{
+    test t1,t2(3),t4(t2);
+    test::show();
+    return 0;
+}
+
+
+
+Answer--7
+
+
+// A book shop maintains the inventory of books that are being sold at the workshop. The list includes details such as author, title, price, publisher and stock position. Whenever a customer wants a book, the sales person inputs the title and author and the system searches the list and displays whether it is available or not. If it is not, an appropriate message is displayed. If it is, then the system displays the book details and requests for the number of copies required. If the requested copies are available, the total cost of their quested copies is displayed otherwise the message “Required copies not in stock” is displayed. WAP using a class called Books with suitable member functions and constructors.
+
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+class details
+{
+    int stock;
+    char *author;
+    char *title;
+    char *publisher;
+    float price;
+    public:
+
+    details(){};    
+    void getdata(details *d,char *a,char *t,char *p,float pr,int s)
+    {
+            author= new char[strlen(a)+1];
+            publisher= new char[strlen(p)+1];
+            title= new char[strlen(t)+1];
+            stock=s;
+            strcpy(author,a);
+            strcpy(title,t);
+            price=pr;
+            strcpy(publisher,p);
+        
+    }
+    details(details *d,int n,char *a,char *t)
+    {
+        int co;
+        for(int i=0;i<n;i++)
+        {
+            if((strcmp(d[i].author,a)==0) && strcmp(d[i].title,t)==0)
+            {
+                cout<<"Enter number of copies you want: ";
+                cin>>co;
+                if(co<=d[i].stock)
+                {
+                    cout<<"Total price will be: "<<co*d[i].price<<endl;
+                    d[i].stock--;
+                }
+                else
+                cout<<"Sorry!! this book is not in stock\n";
+            }
+        }
+    }
+};
+
+int main()
+{
+    int n,stock;
+    float pri;
+    cout<<"Enter number of books: ";
+    cin>>n;    
+    details d[n];
+    char author[30],title[30],publisher[30];
+    for(int i=0;i<n;i++)
+    {
+        cout<<"\n";
+        cout<<"Enter the title of book: ";
+        cin.ignore();
+        cin.getline(title,30);
+        cout<<"Enter author of book: ";
+        cin.ignore();
+        cin.getline(author,30);
+        cout<<"Enter name of publisher: ";
+        cin.ignore();
+        cin.getline(publisher,30);
+        cout<<"Enter stock of this book: ";
+        cin>>stock;
+        cout<<"Enter price of this book: ";
+        cin>>pri;
+        d[i].getdata(d,author,title,publisher,pri,stock);
+    }
+
+    // details
+
+    cout<<"\nSearching Books: \n";    
+    cout<<"title name: ";
+    cin.ignore();
+    cin.getline(title,30);
+    cout<<"author name: ";
+    cin.ignore();
+    cin.getline(author,30);
+    details(d,n,author,title);
+}

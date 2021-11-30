@@ -1,0 +1,536 @@
+Anup kumar singh
+2006411
+LAB-9
+
+
+
+Answer-1
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+class shape
+{
+protected:
+    float area;
+
+public:
+    virtual void calc() = 0;
+    virtual void display()
+    {
+        cout << "Area : " << area << endl;
+    }
+};
+class circle : public shape
+{
+private:
+    float radius;
+
+public:
+    circle(float r)
+    {
+        radius = r;
+    }
+    ~circle(){};
+    void calc()
+    {
+        area = 3.14 * radius * radius;
+    }
+    void display()
+    {
+        cout << "Area of Circle : " << area << endl;
+    }
+};
+class rectangle : public shape
+{
+private:
+    float length, breadth;
+
+public:
+    rectangle(float l, float b)
+    {
+        length = l;
+        breadth = b;
+    }
+    ~rectangle(){};
+    void calc()
+    {
+        area = length * breadth;
+    }
+    void display()
+    {
+        cout << "Area of Rectangle : " << area << endl;
+    }
+};
+class triangle : public shape
+{
+private:
+    float side1, side2, side3;
+    bool check()
+    {
+        if (side1 + side2 > side3 || side2 + side3 > side1 || side1 + side3 > side2)
+            return 1;
+        else
+        {
+            cout << "The sides do not form a triangle." << endl;
+            return 0;
+        }
+    }
+
+public:
+    // using heron's formula
+    triangle(float s1, float s2, float s3)
+    {
+        side1 = s1;
+        side2 = s2;
+        side3 = s3;
+    }
+    ~triangle(){};
+    void calc()
+    {
+        if (check() == 1)
+        {
+            float s;
+            s = (side1 + side2 + side3) / 2.0;
+            area = sqrt(s * (s - side1) * (s - side2) * (s - side3));
+        }
+    }
+    void display()
+    {
+        cout << "Area of Triangle : " << area << endl;
+    }
+};
+int main()
+{
+    float r1, l1, b1, ss1, ss2, ss3;
+    cout << "Shape" << endl;
+    cout << "For Circle:\t Enter Radius: ";
+    cin >> r1;
+    cout << "For Rectangle:\t Enter Length and Breadth: ";
+    cin >> l1 >> b1;
+    cout << "For Triangle:\t Enter the 3 Sides: ";
+    cin >> ss1 >> ss2 >> ss3;
+    circle C(r1);
+    rectangle R(l1, b1);
+    triangle T(ss1, ss2, ss3);
+    shape *S[] = {&C, &R, &T};
+    cout << "Area of Shape" << endl;
+    S[0]->calc();
+    S[0]->display();
+    S[1]->calc();
+    S[1]->display();
+    S[2]->calc();
+    S[2]->display();
+    return 0;
+}
+
+
+
+
+Answer-2
+
+// Create a class which stores employee name,id and salary Derive two classes from ‘Employee’ class: ‘Regular’ and ‘Part-Time’. The ‘Regular’ class stores DA, HRA and basic salary. The ‘Part-Time’ class stores the number of hours and pay per hour. Calculate the salary of a regular employee and a par-time employee, using virtual function
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class employee
+{
+protected:
+    int id;
+    int salary;
+    char name[20];
+
+public:
+    employee(int i, char *ch)
+    {
+        id = i;
+        strcpy(name, ch);
+    }
+    employee() {}
+    virtual void display()
+    {
+        cout << "Name: " << name << endl
+             << "ID: " << id << endl;
+    }
+};
+
+class regular : public employee
+{
+    int da, hra, bs;
+
+public:
+    regular(int i, char *ch, int b) : employee(i, ch)
+    {
+        da = 0.5 * b;
+        hra = 0.8 * b;
+        bs = b;
+        salary = da + hra + bs;
+    }
+
+    regular() {}
+    void display()
+    {
+        cout << "Name: " << name << endl
+             << "ID: " << id << endl
+             << "Regular Salary: " << salary << endl;
+    }
+};
+
+class partTime : public employee
+{
+    int pph, noh;
+
+public:
+    partTime(int i, char *ch, int p, int n) : employee(i, ch)
+    {
+        pph = p;
+        noh = n;
+        salary = pph * noh;
+    }
+
+    partTime() {}
+    void display()
+    {
+        cout << "Part-Time Salary: " << salary << endl;
+    }
+};
+
+int main()
+{
+    char n[50];
+    int id, noh;
+    float bsal, pph;
+    cout << "Enter details of employee: ";
+    cout << "Name: ";
+    cin.getline(n, 50);
+    cout << "ID: ";
+    cin >> id;
+    cout << "If Regular employee:\t Enter Basic Salary: ";
+    cin >> bsal;
+    cout << "If PartTime employee:\t Enter Number of Hours and Pay per Hour: ";
+    cin >> noh >> pph;
+    employee *e;
+    regular r(id, n, bsal);
+    e = &r;
+    e->display();
+    partTime p(id, n, pph, noh);
+    e = &p;
+    e->display();
+    return 0;
+}
+
+
+
+Answer-3
+
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+class Account
+{
+protected:
+    int account_number;
+    float balance;
+    char customer_name[50];
+
+public:
+    void input()
+    {
+        cout << "Enter Account Name: ";
+        cin >> customer_name;
+        cout << "Enter Account Number: ";
+        cin >> account_number;
+        cout << "Enter Balance: ";
+        cin >> balance;
+    }
+    void deposit()
+    {
+        int amt;
+        cout << "Enter the Amount to deposit:";
+        cin >> amt;
+        balance = balance + amt;
+        cout << "->> Amount added to your Balance.";
+    }
+    virtual void withdrawal() = 0;
+    virtual void display()
+    {
+        cout << "->> Account Name : " << customer_name << endl;
+        cout << "->> Account Number : " << account_number << endl;
+        cout << "->> Total Balance : Rs. " << balance << endl;
+    }
+};
+class Savings : public Account
+{
+    int minimumBalance = 500;
+
+public:
+    void withdrawal()
+    {
+        int amt;
+        cout << "Enter the Amount to withdraw:";
+        cin >> amt;
+        if (amt <= balance)
+        {
+            if (amt > minimumBalance)
+                cout << "->> Your withdrawal is more than minimum Balance.";
+            else
+            {
+                balance = balance - amt;
+                cout << "->> Withdrawal is Passed";
+            }
+        }
+        else
+            cout << "->> Your withdrawal is more than Account Balance.";
+    }
+};
+class Current : public Account
+{
+    float overdueBalance = 0.0;
+    int timeperiod = 1;
+
+public:
+    void withdrawal()
+    {
+        int amt;
+        cout << "Enter the Amount to withdraw:";
+        cin >> amt;
+        balance = balance - amt;
+        if (balance < 0)
+        {
+            cout << "->> Your withdrawal is more than Account Balance. Amount Overdued.\nInterest Rate = 0.15%\n";
+            int debt = -balance;
+            timeperiod += 1;
+            overdueBalance = debt + debt * 0.15 * timeperiod;
+        }
+        cout << "->> Withdrawal is Passed";
+    }
+    void display()
+    {
+        cout << "->> Account Name : " << customer_name << endl;
+        cout << "->> Account Number : " << account_number << endl;
+        cout << "->> Total Balance : Rs. " << balance << endl;
+        cout << "->> Overdue Amount : Rs. " << overdueBalance;
+    }
+};
+
+int main()
+{
+    int ch;
+    char account_type;
+    Savings S;
+    Current C;
+    Account *A;
+    cout << "Enter Account Type(S for Savings; C for Current): ";
+    cin >> account_type;
+    if (account_type == 'S' || account_type == 's')
+    {
+        cout << "For Savings Account : ";
+        S.input();
+        A = &S;
+        while (1)
+        {
+            cout << "\nSAVINGS ACCOUNT\n1.Deposit.\n2.Withdraw.\n3.Account Details.\n4.EXIT.\nEnter the Choice:";
+            cin >> ch;
+            switch (ch)
+            {
+            case 1:
+                A->deposit();
+                break;
+            case 2:
+                A->withdrawal();
+                break;
+            case 3:
+                A->display();
+                break;
+            case 4:
+                printf("Thank you.\n");
+                exit(1);
+            default:
+                printf("Invalid Choice.\n");
+                break;
+            }
+        }
+    }
+    if (account_type == 'C' || account_type == 'c')
+    {
+        cout << "For Current Account : ";
+        C.input();
+        A = &C;
+        while (1)
+        {
+            cout << "\nCURRENT ACCOUNT\n1.Deposit.\n2.Withdraw.\n3.Account Details.\n4.EXIT.\nEnter the Choice:";
+            cin >> ch;
+            switch (ch)
+            {
+            case 1:
+                A->deposit();
+                break;
+            case 2:
+                A->withdrawal();
+                break;
+            case 3:
+                A->display();
+                break;
+            case 4:
+                printf("Thank you.\n");
+                exit(1);
+            default:
+                printf("Invalid Choice.\n");
+                break;
+            }
+        }
+    }
+    else
+    cout<<"Invalid choice\n";
+    return 0;
+}
+
+
+
+
+Answer-4
+
+
+#include <iostream>
+using namespace std;
+class number
+{
+protected:
+    int n;
+
+public:
+    void setvalue(int n)
+    {
+        this->n = n;
+    }
+    virtual void show() = 0;
+};
+class hexadecimal : public number
+{
+public:
+    void show()
+    {
+        cout << hex << n << endl;
+    }
+};
+class octadecimal : public number
+{
+public:
+    void show()
+    {
+        cout << oct << n << endl;
+    }
+};
+class decimal : public number
+{
+public:
+    void show()
+    {
+        cout << dec << n << endl;
+    }
+};
+int main(void)
+{
+    int a;
+    cout << "Enter a number: ";
+    cin >> a;
+    cout << "Number :" << a << endl;
+    number *p;
+    hexadecimal h;
+    octadecimal o;
+    decimal d;
+    p = &h;
+    p->setvalue(a);
+    cout << "Hexadecimal equivalent:\t";
+    p->show();
+    p = &o;
+    p->setvalue(a);
+    cout << "Octadecimal equivalent:\t";
+    p->show();
+    p = &d;
+    p->setvalue(a);
+    cout << "Decimal equivalent:\t";
+    p->show();
+}
+
+
+
+Answer-5
+
+
+#include <iostream>
+#include <string>
+#include <cstring>
+using namespace std;
+class media
+{
+protected:
+    string title;
+    float price;
+
+public:
+    media(string t, float p$)
+    {
+        title = t;
+        price = p$;
+    }
+    virtual void print() = 0;
+};
+class book : public media
+{
+    int pages;
+
+public:
+    book(string t, float p$, int p) : media(t, p$)
+    {
+        pages = p;
+    }
+    void print()
+    {
+        cout << "\nTitle : " << title;
+        cout << "\nPages : " << pages;
+        cout << "\nPrice : " << price;
+    }
+};
+class tape : public media
+{
+    float timee;
+
+public:
+    tape(string t, float p$, int te) : media(t, p$)
+    {
+        timee = te;
+    }
+    void print()
+    {
+        cout << "\nTitle : " << title;
+        cout << "\nTime : " << timee;
+        cout << "\nPrice : " << price;
+    }
+};
+int main()
+{
+    media *m[2];
+    string s;
+    int pages;
+    float price, timee;
+    cout << "Enter Title: ";
+    getline(cin, s);
+    cout << "Enter Price: ";
+    cin >> price;
+    cout << "If Book\tEnter pages: ";
+    cin >> pages;
+    cout << "If Tape\tEnter time: ";
+    cin >> timee;
+    book b(s, price, pages);
+    tape t(s, price, timee);
+    m[0] = &b;
+    m[1] = &t;
+    cout << "\n\tBook";
+    m[0]->print();
+    cout << "\n\n\tTape";
+    m[1]->print();
+    return 0;
+}

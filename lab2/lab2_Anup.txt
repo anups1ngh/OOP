@@ -1,0 +1,299 @@
+<=== answer 1 ===>
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    char name[30];
+    cout<<"enter name: ";
+    cin.getline(name,30);
+    // getline used to get whole line as an input
+    cout<<"Hello "<<name;
+    return 0;
+}
+
+
+
+<=== answer 2 ===>
+
+#include<iostream>
+using namespace std;
+
+class details
+{
+    int roll;
+    char name[30];
+    int marks[5];
+    float tot=0,per;
+    public:
+        void getdata()
+        {
+            cout<<"Enter name : ";
+            cin.getline(name,30);
+            cout<<"Enter Roll: ";
+            cin>>roll;
+            
+            for(int i=0;i<5;i++)
+            {
+                cout<<"Enter marks sub "<<i+1<<"- ";
+                cin>>marks[i];
+                tot=tot+marks[i];
+            }
+            per=tot/5;
+            cout<<endl;
+        }
+
+        void display()
+        {
+            cout<<"<=== DETAILS ===>"<<endl;
+            cout<<"Name: "<<name<<endl;
+            cout<<"Roll: "<<roll<<endl;
+            cout<<"Total marks: "<<tot<<endl;
+            cout<<"Percentage: "<<per<<" %"<<endl;
+        }
+};
+
+int main()
+{
+    details a1;
+    a1.getdata();
+    a1.display();
+}
+
+
+
+
+<=== answer 3 ===>
+
+#include <iostream>
+
+using namespace std;
+class student
+{
+    char name[25];
+    int roll;
+    int marks[5];
+    int total=0;
+    float perc;
+public:
+    void getdata()
+    {
+        cout<<"enter the name: ";
+        cin>>name;
+        cout<<"\nenter the roll number: ";
+        cin>>roll;
+        cout<<"\nenter marks in 5 subjects: \n";
+        for(int i=0;i<5;i++)
+        {
+            cin>>marks[i];
+        }
+    }
+    void showdata()
+    {
+        cout<<"\nthe name is: "<<name;
+        cout<<"\nroll is: "<<roll;
+        cout<<"\nmarks in 5 subjects are:";
+        for(int i=0;i<5;i++)
+        {
+            cout<<"\n"<<marks[i];
+            total+=marks[i];
+        }
+        perc=total/5;
+        cout<<"\ntotal marks is: "<<total;
+        cout<<"\npercentage is: "<<perc;
+    }
+};
+
+int main()
+{
+    student s;
+    s.getdata();
+    s.showdata();
+    return 0;
+}
+
+
+
+<=== answer 4 ===>
+
+#include <iostream>
+using namespace std;
+
+class complexn
+{
+    float real;
+    float img;
+public:
+    void getdata()
+    {
+        cout<<"\nenter the real part: ";
+        cin>>real;
+        cout<<"\nenter the imaginary part: ";
+        cin>>img;
+    }
+    void showdata()
+    {
+        cout<<"\nthe complex number is: ";
+        cout<<real<<"+i"<<img;
+    }
+};
+int main()
+{
+
+    complexn com[10];
+    for(int i=0;i<10;i++)
+    {
+        com[i].getdata();
+        com[i].showdata();
+    }
+    return 0;
+}
+
+
+
+<=== answer 5 ===>
+
+#include <iostream>
+using namespace std;
+
+class distanc
+{
+    int feet;
+    int inch;
+public:
+    void getdata()
+    {
+        cout<<"\nenter the feet: ";
+        cin>>feet;
+        cout<<"\nenter the inches: ";
+        cin>>inch;
+    }
+    void showdata()
+    {
+        cout<<feet<<"feet "<<inch<<"inches\n";
+    }
+    void add(distanc d1,distanc d2)
+    {
+        inch=d1.inch+d2.inch;
+        feet=d1.feet+d2.feet+(inch/12);
+        inch=inch%12;
+    }
+};
+int main()
+{
+    distanc dis1,dis2,dis3;
+    dis1.getdata();
+
+    dis2.getdata();
+
+    dis3.add(dis1,dis2);
+    dis3.showdata();
+    return 0;
+}
+
+
+
+<=== answer 6 ===>
+
+#include<iostream>
+using namespace std;
+
+class employees
+{
+  int id,age;
+  char name[20];
+  float salary,gross_salary,DA,HRA;
+
+  public: 
+  void getdata()
+  {
+
+    cout<<"Enter ID of the Emloyee : ";
+    cin>>id;
+
+    cout<<"Enter emloyee name : ";
+    cin.getline(name,20,'\n');
+
+    cout<<"Enter employee age : ";
+    cin>>age;
+
+    cout<<"Enter basic salary : ";
+    cin>>salary;
+
+    DA=0.8*salary;
+    HRA=0.1*salary;
+    gross_salary=salary+DA+HRA;
+  }
+
+  void display()
+  {
+    cout<<"ID of the employee : "<<id<<endl;
+    cout<<"Name of the employee : "<<name<<endl;
+    cout<<"Age of the employee : "<<age<<endl;
+    cout<<"Basic salary of the employee : "<<salary<<endl;
+    cout<<"Gross Salary of the employee : "<<gross_salary<<endl;
+
+  }
+};
+
+int main()
+{
+    int n;
+
+    cout<<"\nEnter number of employees details to be enter : ";
+    cin>>n;
+
+    employees e[n];
+
+    for(int i=0;i<n;i++)
+    {
+        cout<<"\nEnter details of emloyee "<<i+1<<endl;
+        e[i].getdata();
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        cout<<"\n\t\tDetails of employee "<<i+1<<endl;
+        e[i].display();
+    }
+
+}
+
+
+
+<=== answer 7 ===>
+
+#include <iostream>
+#include<math.h>
+using namespace std;
+
+class coordinate
+{
+    double x,y;
+public:
+    void getdata()
+    {
+        cout<<"\nenter the x coordinate: ";
+        cin>>x;
+        cout<<"\nenter the y coordinate: ";
+        cin>>y;
+    }
+    double result(coordinate c1,coordinate c2)
+    {
+        double res;
+        res=sqrt((pow((c1.x-c2.x),2))+(pow((c1.y-c2.y),2)));
+        return res;
+    }
+
+};
+int main()
+{
+    coordinate a,b,c;
+    double x;
+    a.getdata();
+    b.getdata();
+    x=c.result(a,b);
+    cout<<"result is: "<<x;
+    return 0;
+}

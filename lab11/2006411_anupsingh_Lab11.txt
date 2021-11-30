@@ -1,0 +1,344 @@
+Anup kumar singh
+2006411
+IT-A15
+
+Answer--1
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+ 
+int main()
+{
+    char c;
+    fstream file("q1.txt",ios::in);
+    if(!file)
+    {
+        cout<<"Error opening file\n";
+        exit(0);
+    }
+    while(file.eof() ==0)
+    {
+        file.get(c);
+        cout<<c<<" ";
+    }
+    file.close();
+    return 0;
+}
+
+
+Answer--2
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+ 
+int main()
+{
+    char c;
+    fstream file("q6.txt",ios::in);
+    // in below operation if file doesn't exist it will create and operate the operation
+    // and in ofstream it will clear whole thing and start writing from beginning
+    // we need to use fstream with ios::in and ios::out together then it will not clear the content of the file
+    ofstream fout("q2.txt");
+    if(!file)
+    {
+        cout<<"File not found\n";
+        exit(0);
+    }
+    while(file.eof() ==0)
+    {
+        file.get(c);
+        fout.put(c);
+    }
+    file.close();
+    fout.close();
+    cout<<"Operation Completed\n";
+    return 0;
+}
+
+
+Answer--3
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+ 
+int main()
+{
+    char data[20];
+    fstream file("q3.txt",ios::out);
+    if(!file)
+    {
+        cout<<"Error opening file\n";
+        exit(0);
+    }
+    for(int i=1;i<=10;i++)
+    {
+        cout<<"Enter a word: ";
+        cin>>data;
+        file<<data<<" ";
+    }
+    file.clear();
+    file.close();
+    fstream file_re("q3.txt",ios::in);
+    for(int i=1;i<=10;i++)
+    {
+        file_re>>data;
+        cout<<data<<"\t";
+    }
+    file_re.clear();
+    file_re.close();
+    return 0;
+}
+
+
+Answer--4
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+ 
+int main()
+{
+    char c;
+    fstream file("q4.txt",ios::in);
+    file.seekg(0,ios::end);
+    int len = file.tellg();
+    for(int i=1;i<=len;i++)
+    {
+        file.seekg(-i,ios::end);
+        file.get(c);
+        cout<<c;
+    }
+    return 0;
+}
+
+
+Answer--5
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+ 
+int main()
+{
+    char c,ch[50],chl[256];
+    int uc=0,lc=0,nos=0,nod=0,nol=0,noc=0,now=0;
+    fstream file("q5.txt",ios::in);
+    if(!file)
+    {
+        cout<<"File not Found\n";
+        exit(0);
+    }
+    while(file.eof() ==0)
+    {
+        file.get(c);
+        if(c !=' ')
+        noc++;
+        if(c>= 'A' && c<= 'Z')
+        uc++;
+        if(c>= 'a' && c<= 'z')
+        lc++;
+        if(c>= '0' && c<= '9')
+        nod++;
+        if(c>='!' && c<= '/')
+        nos++;
+    }
+    fstream fwcount("q5.txt",ios::in);
+    while(fwcount.eof()==0)
+    {
+        fwcount>>ch;
+        now++;
+    }
+    fstream flcount("q5.txt",ios::in);
+    while(flcount.eof()==0)
+    {
+        flcount.getline(chl,256);
+        nol++;
+    }
+    cout<<"Number of Upper-Case characters: "<<uc<<endl;
+    cout<<"Number of Lower-Case characters: "<<lc<<endl;
+    cout<<"Number of speacial characters: "<<nos<<endl;
+    cout<<"Number of characters: "<<noc<<endl;
+    cout<<"Number of Lines: "<<nol<<endl;    
+    cout<<"Number of words: "<<now<<endl;
+    cout<<"Number of digits: "<<nod<<endl;  
+    
+
+    file.close();
+    fwcount.close();
+    return 0;
+}
+
+
+Answer--6
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+int main()
+{
+    char i,o,data[256];
+    fstream file("q6.txt",ios::in | ios::out);
+    if(!file)
+    {
+        cout<<"File Not found\n";
+        exit(1);
+    }
+    cout<<"Before Updating\n";
+
+    while(!file.eof())
+    {
+        file.getline(data,256);
+        cout<<data<<endl;
+    }
+    file.clear();
+    file.seekg(0,ios::beg);
+
+    while(file.eof() == 0)
+    {
+        file.get(i);
+        // we can use isupper() also
+        if(i>= 'A' && i<='Z')
+        {
+            file.seekp(-1,ios::cur);
+            o= i+32;
+            file.put(o);
+        }
+        // we can use islower() also
+        else if(islower(i))
+        {
+            file.seekp(-1,ios::cur);
+            o=i-32;
+            file.put(o);
+        }
+    }
+    file.clear();
+    file.seekg(0,ios::beg);
+
+    cout<<"After Updating\n";
+
+    while(!file.eof())
+    {
+        file.getline(data,256);
+        cout<<data<<endl;
+    }
+    file.clear();
+
+    file.close();
+    return 0;
+}
+
+
+Answer--7
+
+// atoi is used to convert string value to integer value
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+ 
+int main()
+{
+    int roll;
+    char name[20],gender[7];
+    int marks[3];
+
+    cout<<"Enter name of the Student: ";
+    cin.getline(name,20);
+    cout<<"Enter roll: ";
+    cin>>roll;
+    cout<<"Enter gender: ";
+    cin>>gender;
+    cout<<"Enter marks in three subjects\n";
+    for(int i=0;i<3;i++)
+    {
+        cout<<"Marks "<<i+1<<": ";
+        cin>>marks[i];
+    }
+
+    fstream file("student.txt",ios::out);
+    file<<"Name: "<<name<<endl;
+    file<<"Roll: "<<roll<<endl;
+    file<<"Gender: "<<gender<<endl;
+    file<<"****Marks****"<<endl;
+    for(int i=0;i<3;i++)
+    {
+        file<<"Marks "<<i+1<<": "<<marks[i]<<endl;
+    }
+    file.close();
+    return 0;
+}
+
+
+Answer--8
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+class student{
+    protected:
+    int roll;
+    char name[20];
+    float cgpa;
+    public:
+        void getdata()
+        {
+            cout<<"Roll: ";
+            cin>>roll;
+            cout<<"Name: ";
+            cin>>name;
+            cout<<"CGPA: ";
+            cin>>cgpa;
+        }
+        void show()
+        {
+            cout<<"Roll: "<<roll<<endl;
+            cout<<"Name: "<<name<<endl;
+            cout<<"CGPA: "<<cgpa<<endl;
+        }
+};
+
+int main()
+{
+    fstream file("q8.txt",ios::out | ios::in);
+    file.seekp(0,ios::beg);
+    student s[2];
+    s[0].getdata();
+    file.write((char*)&s[0],sizeof(s[0]));
+    file.seekg(0,ios::beg);
+    file.read((char*)&s[1],sizeof(s[1]));
+    cout<<endl<<"Data in file is:\n";
+    s[1].show();
+    return 0;
+}
+
+
+Answer--9
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+ 
+int main()
+{
+    char data[256];
+    fstream file("q9.txt",ios::out | ios::in);
+    if(!file)
+    {
+        cout<<"File not found\n";
+        exit(0);
+    }
+    file<<"Hello ";
+    file<<"this is a demo data";
+    file<<endl<<"yeah";
+    file.seekg(0,ios::beg);
+    while(file.eof() == 0)
+    {
+        file>>data;
+        cout<<data<<" ";
+    }
+    return 0;
+}

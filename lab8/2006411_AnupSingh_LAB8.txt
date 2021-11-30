@@ -1,0 +1,606 @@
+-------Anup singh-------
+Roll no: 2006411
+Information Technology
+-------LAB-8-------
+
+
+Answer-1(A)
+
+#include<iostream>
+using namespace std;
+ 
+class Distance{
+   int feet;
+   int inch;
+   public:
+      Distance()
+      {
+         feet=inch=0;
+      };
+      Distance(int f,int i){
+         feet=f;
+         inch=i;
+      }
+      Distance operator+ (Distance d1)
+      {
+               int temp=0;
+               Distance d;
+               if(d1.inch>=12 && inch<=12)
+               {
+                  temp=d1.inch/12;
+                  d.feet=d1.feet+temp+feet;
+                  d.inch=inch+(d1.inch-12*temp);
+                  if(d.inch>=12)
+                  {
+                     d.feet++;
+                     d.inch-=12;
+                  }
+               }
+               else if(inch>=12 && d1.inch<=12)
+               {
+                  temp=inch/12;
+                  d.feet=d1.feet+temp+feet;
+                  d.inch=d1.inch+(inch-12*temp);
+                  if(d.inch>=12)
+                  {
+                     d.feet++;
+                     d.inch-=12;
+                  }
+               }
+               else if(inch>=12 && d1.inch>=12)
+               {  int t1=0;
+                  temp=inch/12;
+                  t1=d1.inch/12;
+                  d.feet=feet+d1.feet+temp+t1;
+                  d.inch=(inch-12*temp)+(d1.inch-12*t1);
+                  if(d.inch>=12)
+                  {
+                     d.feet++;
+                     d.inch-=12;
+                  }
+               }
+               return d;
+            }
+      friend Distance operator+(int i,Distance d1);
+      
+      void display()
+      {
+         cout<<feet<<" feet "<<inch<<" inch "<<endl;
+      }
+};    
+
+Distance operator+(int i,Distance d1)
+{
+   Distance d;
+   d.feet=d1.feet;
+   d.inch=i+d1.inch;
+   if(d.inch>=12)
+   {
+      d.feet++;
+      d.inch-=12;
+   }
+   return d;
+}
+
+int main()
+{
+   Distance d1(5,45),d2(12,34),sum;
+   sum=d1+d2;
+   sum.display();
+   sum=3+sum;
+   cout<<endl;
+   sum.display();
+   return 0;
+}
+
+
+
+Answer-1(B)
+
+
+#include<iostream>
+using namespace std;
+ 
+class pointt{
+    int x;
+    int y;
+    int z;
+    public:
+        pointt(int a,int b,int c){
+            x=a;
+            y=b;
+            z=c;
+        }
+        void operator-()
+        {
+            x=-x;
+            y=-y;
+            z=-z;
+            cout<<"\nx: "<<x<<"\ny: "<<y<<"\nz: "<<z<<endl;
+        }
+};
+
+int main()
+{
+    int m,n,o;
+    cout<<"X: ";
+    cin>>m;
+    cout<<"Y: ";
+    cin>>n;
+    cout<<"Z: ";
+    cin>>o;
+    pointt p1(m,n,o);
+    -p1;
+    return 0;
+}
+
+
+
+Answer-2
+
+
+#include<iostream>
+using namespace std;
+ 
+class arr{
+    static int cnt;
+    int a[10];
+    public:
+        friend istream & operator >> (istream &, arr &arrr);
+        friend ostream & operator << (ostream &, const arr &arrr);
+};
+istream & operator >> (istream &, arr &arrr)
+{
+    cout<<"Enter 10 elements in array: ";
+    for(int i=0;i<10;i++)
+    cin>>arrr.a[i];
+    return cin;
+}
+ostream & operator << (ostream &,const arr &arrr){
+    cout<<"\nElements in the array are: ";
+    for(int i=0;i<10;i++)
+    cout<<arrr.a[i]<<"\t";
+    return cout;
+}
+
+int arr::cnt;
+int main()
+{
+   arr a1,a2;
+   cin>>a1>>a2;
+   cout<<a1<<a2;
+   return 0;
+}
+
+
+
+
+Answer-3(A)
+
+
+#include <iostream>
+using namespace std;
+class timee
+    {
+    int hour,minute,second;
+    public:
+    timee() //default contructor called
+      {
+         hour = minute = second = 0; 
+      }
+
+    timee(int h, int m, int s) //parameterized contructor called
+      {
+        hour = h + m/60;
+        minute = m%60 + s/60;
+        second = s%60; 
+      }
+    void displaytime()
+      {       
+          cout<<"Time: "<<hour<<" hours: "<<minute<<" minutes: "<<second<<"seconds"<<endl; 
+      }
+            timee operator++(); //prefix ++
+            timee operator++(int); //postfix ++
+            timee operator--(); //prefix --
+            timee operator--(int); //postfix --
+    };
+
+
+int main()
+{
+    int h,m,s;
+    cout<<"Enter Time (hour, minute, second) : "; cin>>h>>m>>s;
+    timee t1(h,m,s);
+    cout<<"Original time:"<<endl;
+    t1.displaytime();
+    timee t11 = t1;
+    cout<<"Overloading ++ prefix operator"<<endl;
+    timee t2 = ++t1;
+    cout<<"Prefix time:"<<endl;
+    t2.displaytime();
+    cout<<"Overloading postfix ++ operator"<<endl;
+    timee t22 = t11++;
+    cout<<"Postfix time:"<<endl;
+    t22.displaytime();    
+    cout<<"\n"<<endl;
+    cout<<"Enter Time (hour, minute, second) : "; cin>>h>>m>>s;
+    timee t3(h,m,s);
+    cout<<"Original time:"<<endl;
+    t3.displaytime();
+    timee t33 = t3;
+    cout<<"Overloading -- prefix operator"<<endl;
+    timee t4 = --t3;
+    cout<<"prefix time:"<<endl;
+    t4.displaytime();
+    cout<<"Overloading postfix -- operator"<<endl;
+    timee t44 = t33--;
+    cout<<"postfix time:"<<endl;
+    t44.displaytime();
+    return 0; 
+}
+
+timee timee::operator++()
+{
+    ++second;
+    if (second == 60) {
+    second = 0;
+    ++minute;
+    if (minute == 60) 
+    {
+    minute = 0;
+    ++hour; 
+    } 
+    }
+    return *this; 
+}
+
+timee timee::operator++(int) 
+{
+    timee t(hour,minute,second);
+    second++;
+    if (second == 60) {
+    second = 0;
+    minute++;
+    if (minute == 60) {
+    minute = 0;
+    hour++;
+    } }
+    return t; 
+}
+
+timee timee::operator--()
+{
+    --second;
+    if (second<0) {
+    --minute;
+    second += 60;
+    if (minute<0) {
+    --hour;
+    minute += 60; } 
+    }
+    return *this; 
+}
+
+timee timee::operator--(int) 
+{
+    timee t(hour,minute,second);
+    second--;
+    if (second<0) {
+    minute--;
+    second += 60;
+    if (minute<0) {
+    hour--;
+    minute += 60; } }
+    return t; 
+}
+
+
+
+
+Answer-3(B)
+
+
+#include <iostream>
+using namespace std;
+class timee
+{
+    int hour,minute,second;
+    public:
+    timee() //default contructor called
+    { 
+        hour = minute = second = 0; 
+    }
+    timee(int h, int m, int s) //parameterized contructor called
+    {
+    hour = h + m/60;
+    minute = m%60 + s/60;
+    second = s%60;
+    }
+    void displaytime()
+    {   
+        cout<<"Time: "<<hour<<" hours: "<<minute<<" minutes: "<<second<<"seconds"<<endl;
+    }
+        friend timee operator++(timee &); //prefix ++
+        friend timee operator++(timee &,int); //postfix ++
+        friend timee operator--(timee &); //prefix --
+        friend timee operator--(timee &,int); //postfix --
+};
+
+int main()
+{
+    int h,m,s;
+    cout<<"Enter Time (hour, minute, second) : "; cin>>h>>m>>s;
+    timee t1(h,m,s);
+    cout<<"Original time:"<<endl;
+    t1.displaytime();
+    timee t11 = t1;
+    cout<<"Overloading ++ prefix operator"<<endl;
+    timee t2 = ++t1;
+    cout<<"prefix time:"<<endl;
+    t2.displaytime();
+    cout<<"Overloading postfix ++ operator"<<endl;
+    timee t22 = t11++;
+    cout<<"Postfix time:"<<endl;
+    t22.displaytime();  
+    cout<<endl;
+    cout<<"Enter Time (hour, minute, second) : "; cin>>h>>m>>s;
+    timee t3(h,m,s);
+    cout<<"Original time:"<<endl;
+    t3.displaytime();
+    timee t33 = t3;
+    cout<<"Overloading -- prefix operator"<<endl;
+    timee t4 = --t3;
+    cout<<"Prefix time:"<<endl;
+    t4.displaytime();
+    cout<<"Overloading postfix -- operator"<<endl;
+    timee t44 = t33--;
+    cout<<"Postfix time:"<<endl;
+    t44.displaytime();
+    return 0; 
+}
+
+
+timee operator++(timee &t) 
+{
+    ++t.second;
+    if (t.second == 60) {
+    t.second = 0;
+    ++t.minute;
+    if (t.minute == 60) {
+    t.minute = 0;
+    ++t.hour; } }
+    return t; 
+}
+
+timee operator++(timee &t,int) 
+{
+    timee tt(t.hour,t.minute,t.second);
+    t.second++;
+    if (t.second == 60) {
+    t.second = 0; t.minute++;
+    if (t.minute == 60) {
+    t.minute = 0; t.hour++;
+    } }
+    return tt; 
+}
+
+timee operator--(timee &t) 
+{
+    --t.second;
+    if (t.second<0) {
+    --t.minute; t.second += 60;
+    if (t.minute<0) {
+    --t.hour; t.minute += 60; } }
+    return t; 
+}
+
+timee operator--(timee &t,int) 
+{
+    timee tt(t.hour,t.minute,t.second);
+    t.second--;
+    if (t.second<0) {
+    t.minute--;
+    t.second += 60;
+    if (t.minute<0) {
+    t.hour--;
+    t.minute += 60; } }
+    return tt;
+}
+
+
+
+Answer-4
+
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+class strr
+{
+    public:
+    char *s;
+    int len;
+    //str(){};
+    strr()
+    {
+         s = new char[6];
+        strcpy(s,"Hello");
+    }
+
+    strr(char *first) 
+    {
+        len = strlen(first);
+        s = new char[len+1];
+        strcpy(s,first);
+    }
+
+    strr operator+(strr &s2) 
+    {
+        strr temp;
+        int l1,l2;
+        l1=s2.len;
+        l2=len;
+        temp.len=l1+l2;   
+        temp.s=new char[temp.len+1];     
+        strcat(s,s2.s);
+        strcpy(temp.s,s);
+        return temp;
+    }
+
+    strr operator=(strr &s2) 
+    {   
+        len = s2.len;
+        s= new char[len+1];
+        strcpy(s,s2.s);
+        return *this; 
+    }
+};
+
+
+int main()
+{
+    char a[30];
+    char b[30];
+    cout<<"Enter string 1: ";
+    cin>>a;
+    cout<<"Enter string 2: ";
+    cin>>b;
+    strr s1(a),s2(b);
+    strr assigns1 = s1;
+    strr assigns2 = s2;
+    strr cat = s1 + s2;    
+    cout<<"Full string is : "<<cat.s<<endl;
+    cout<<"String assigned with S1 is : "<<assigns1.s<<endl;
+    cout<<"String assigned with S2 is : "<<assigns2.s<<endl;
+    return 0; 
+}
+
+
+
+Answer-5
+
+
+// Wap to overload the operator '==' to compare two objects of complex class and display whether they are equal or not .
+#include<iostream>
+using namespace std;
+
+class complex{
+    int real;
+    int img;
+    public:
+        complex()
+        {
+            cout<<"Enter real value: ";
+            cin>>real;
+            cout<<"Enter imaginary value: ";
+            cin>>img;
+        }
+        bool operator ==(complex ob)
+        {
+            if(ob.real==real && ob.img==img)
+                return true;
+            else
+                return false;
+        }
+        void display()
+        {
+            cout<<"\n";
+            cout<<real<<" + "<<img<<"i "<<endl;
+        }
+        ~complex()
+        {
+            cout<<"\nComplex destructor invoked";
+        }
+        
+        // complex operator+(complex c1)
+        // {
+        //     real=real+c1.real;
+        //     img=img+c1.img;
+        //     return *this;
+        // }
+};
+
+int main()
+{
+    complex c1,c2;
+    if(c1==c2)
+    {
+        cout<<"\nYes they are equal \n";
+    }    
+    else
+    cout<<"\nThey are not equal \n";
+    // c1+c2;
+    // c1.display();
+    // if(c1==c2)
+    // {
+    //     cout<<"\nYes they are equal \n";
+    // }    
+    // else
+    // cout<<"\nThey are not equal \n";
+    return 0;
+}
+
+
+
+Answer-6
+
+
+#include<iostream>
+using namespace std;
+class dist
+{
+    float feet, inches;
+    public:
+    dist( )
+    {
+        feet=inches=0.0;
+    }
+    dist (float f, float i)
+    {
+        feet=f;
+        inches=i;
+    }
+    dist operator > (dist d2); 
+    void display()
+    {
+        cout<<feet<<" feet "<<inches<<" inches "<<"\n";
+    }
+    bool operator==(dist d1)
+    {
+        float t1,t2;
+        t1= feet*12.0+inches;
+        t2=d1.feet*12.0+d1.inches;
+        return t1==t2? true:false;
+    }
+};
+
+dist dist:: operator >(dist d2)
+{   float t1, t2;
+    t1= feet*12.0 + inches;
+    t2= d2.feet*12.0 + d2.inches;
+    return (t1>t2)? *this:d2;
+}
+
+int main()
+{
+    float f1,f2,i1,i2;
+    cout<<"Feet: ";
+    cin>>f1;
+    cout<<"Inches: ";
+    cin>>i1;
+    cout<<"Feet: ";
+    cin>>f2;
+    cout<<"Inches: ";
+    cin>>i2;
+    dist d1(f1,i1), d2(f2,i2),d3; 
+    d3=d1>d2;
+    if(d1==d2)
+    {
+    cout<<"Both distance are equal \n";
+    }
+    else
+    cout<<"Both are not equal \n"; 
+    cout<<"Greater distance is : ";
+    d3.display();
+    return 0;
+}
